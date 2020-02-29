@@ -16,5 +16,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  knex.schema.raw('DROP TABLE if exists entries cascade');
+  knex.schema.dropTableIfExists('entries');
 };
