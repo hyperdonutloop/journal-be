@@ -1,9 +1,9 @@
 exports.up = function(knex) {
-  knex.schema.createTable('entries', tbl => {
+  return knex.schema.createTable('entries', tbl => {
     tbl.increments();
     tbl.string('title', 250).notNullable();
     tbl.text('text').notNullable();
-    tbl.datetime('created_at', { precision: 6}).defaultTo(knex.fn.now(6));
+    tbl.datetime('created_at').defaultTo(knex.fn.now());
     tbl
       .integer('user_id')
       .notNullable()
@@ -11,10 +11,10 @@ exports.up = function(knex) {
       .references('id')
       .inTable('users')
       .onUpdate('CASCADE')
-      .onDelete('CASCADE');
+      .onDelete('RESTRICT');
   })
 };
 
 exports.down = function(knex) {
-  knex.schema.dropTableIfExists('entries');
+  return knex.schema.dropTableIfExists('entries');
 };
