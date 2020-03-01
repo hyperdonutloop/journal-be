@@ -33,6 +33,30 @@ router.get('/:id', authenticate, (req, res) => {
     })
 });
 
+// get entry by user id
+
+router.get('/users/:id', authenticate, (req, res) => {
+  const { id } = req.params;
+
+  Entries.getByUserId(id)
+    .then(entry => {
+      if(entry) {
+        res.status(200).json({
+          status: 200,
+          data: entry,
+        })
+      } else {
+        res.status(404).json({ error: 'User has not created an entry' })
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        status: 500,
+        error: 'Cannot get entries', error,
+      })
+    });
+})
+
 // create an entry
 router.post('/', (req, res) => {
   let entryData = req.body;
