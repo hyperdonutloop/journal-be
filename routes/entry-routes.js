@@ -35,7 +35,7 @@ router.get('/:id', authenticate, (req, res) => {
 
 // get entry by user id
 
-router.get('/users/:id', authenticate, (req, res) => {
+router.get('/user/:id', authenticate, (req, res) => {
   const { id } = req.params;
 
   Entries.getByUserId(id)
