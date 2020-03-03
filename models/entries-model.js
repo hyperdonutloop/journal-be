@@ -30,16 +30,16 @@ function findById(id) {
     .first();
 }
 
-async function update(entry, id) {
-  await db('entries')
-  .where({ id: id })
-  .update(entry);
+function update (id, user) {
+  return db('entries')
+  .where({ id })
+  .update(user, ['id', 'title', 'text', 'user_id', 'created_at']);
 
-  const [updatedEntry] = await db('entries')
-  .where({ id: id })
+  // const [updatedEntry] = await db('entries')
+  // .where({ id: id })
 
   
-  return updatedEntry;
+  // return updatedEntry;
 }
 
 function remove(id) {

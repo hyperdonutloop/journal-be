@@ -56,7 +56,7 @@ router.get('/user/:id', async (req, res) => {
     })
   }
 
-})
+});
 
 // router.get('/user/:id', authenticate, (req, res) => {
 //   const { id } = req.params;
@@ -90,28 +90,45 @@ router.post('/', (req, res) => {
     .catch(error => {
       res.status(500).json({ message: 'Unable to add post', error })
     })
-})
+});
 
 //edit an entry
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const { id } = req.params;
-  const changes = req.body;
+  const { title, text, user_id } = req.body;
 
-  Entries.findById(id)
-    .then(updatedEntry => {
-      if (updatedEntry) {
-        Entries.update(changes, id)
-          .then(updatedEntry => {
-            res.json(updatedEntry)
-          })
-      } else {
-        res.status(404).json({ message: 'Could not find post with the given id' })
-      }
+  try {
+    const entry = await Entries.update(id, {title, text, user_id });
+    res.status(200).json({
+      status: 200,
+      data: entry,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 500,
+      error: 'Cannot update entry!'
     })
-    .catch(error => {
-      res.status(500).json({ message: 'Failed to update post', error })
-    })
+  }
 });
+// router.put('/:id', (req, res) => {
+//   const { id } = req.params;
+//   const changes = req.body;
+
+//   Entries.findById(id)
+//     .then(updatedEntry => {
+//       if (updatedEntry) {
+//         Entries.update(changes, id)
+//           .then(updatedEntry => {
+//             res.json(updatedEntry)
+//           })
+//       } else {
+//         res.status(404).json({ message: 'Could not find post with the given id' })
+//       }
+//     })
+//     .catch(error => {
+//       res.status(500).json({ message: 'Failed to update post', error })
+//     })
+// });
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
