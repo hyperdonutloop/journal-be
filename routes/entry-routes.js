@@ -98,7 +98,7 @@ router.put('/:id', async (req, res) => {
   const { title, text, user_id } = req.body;
 
   try {
-    const entry = await Entries.update(id, {title, text, user_id });
+    const entry = await Entries.update(id, { title, text, user_id });
     res.status(200).json({
       status: 200,
       data: entry,
