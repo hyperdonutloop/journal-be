@@ -5,7 +5,9 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './data/journal.db3'
+      filename: './data/journal.db3',
+      timezone: 'pst',
+      datestrings: true,
     },
     migrations: {
       directory: './data/migrations'
@@ -42,7 +44,7 @@ module.exports = {
     connection: {
       database: 'my_db',
       user:     'username',
-      password: 'password'
+      password: 'password',
     },
     pool: {
       min: 2,
@@ -54,3 +56,42 @@ module.exports = {
   }
 
 };
+
+// module.exports = {
+//   development: {
+//     client: 'postgresql',
+//     connection: "DEV_URL",
+//     pool: {
+//       min: 2,
+//       max: 10,
+//       afterCreate: function (conn, cb) {
+//         conn.query('SET timezone="UTC";', function (err) {
+//           cb(err, conn);
+//         });
+//       }
+//     },
+//     migrations: {
+//       directory: __dirname + "/db/migrations",
+//       tableName: 'knex_migrations'
+//     },
+//     seeds: {
+//       directory: __dirname + "/db/seeds/development"
+//     }
+//   },
+
+//   production: {
+//     client: 'postgresql',
+//     connection: "PROD_URL",
+//     pool: {
+//       min: 2,
+//       max: 10
+//     },
+//     migrations: {
+//       directory: __dirname + "/db/migrations",
+//       tableName: 'knex_migrations'
+//     },
+//     seeds: {
+//       directory: __dirname + "/db/seeds/production"
+//     }
+//   }
+// };

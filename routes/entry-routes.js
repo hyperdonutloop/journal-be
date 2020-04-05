@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Entries = require('../models/entries-model.js');
 const authenticate = require('../auth/restricted-middlware.js');
 
+
 //get all entries
 router.get('/', authenticate, (req, res) => {
   Entries.find()

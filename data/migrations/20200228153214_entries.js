@@ -3,7 +3,7 @@ exports.up = function(knex) {
     tbl.increments();
     tbl.string('title', 250).notNullable();
     tbl.text('text').notNullable();
-    tbl.datetime('created_at').defaultTo(knex.fn.now());
+    tbl.timestamp('created_at', { useTz: true }).defaultTo(knex.fn.now());
     tbl
       .integer('user_id')
       .notNullable()
@@ -11,7 +11,7 @@ exports.up = function(knex) {
       .references('id')
       .inTable('users')
       .onUpdate('CASCADE')
-      .onDelete('RESTRICT');
+      .onDelete('CASCADE');
   })
 };
 
