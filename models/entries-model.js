@@ -19,7 +19,7 @@ function find() {
 }
 
 async function add(entry) {
-  const [id] = await db('entries').insert(entry);
+  const [id] = await db('entries').insert(entry, ['id', 'title', 'text', 'user_id', 'created_at']);
   // (entry, ['id', 'title', 'text', 'user_id', 'created_at']);
   return findById(id);
 }

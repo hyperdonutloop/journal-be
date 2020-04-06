@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Entries = require('../models/entries-model.js');
 const authenticate = require('../auth/restricted-middlware.js');
+var time = require('express-timestamp');
 
 
 //get all entries
@@ -86,7 +87,10 @@ router.post('/', (req, res) => {
   let entryData = req.body;
   Entries.add(entryData)
     .then(added => {
-      res.status(201).json(added)
+      res.status(201).json({
+        status: added,
+        data: new Date().toLocaleString('en-US', {timeZone: 'America/Los_Angeles'})
+      })
     })
     .catch(error => {
       res.status(500).json({ message: 'Unable to add post', error })
