@@ -6,7 +6,7 @@ module.exports = {
     client: 'sqlite3',
     connection: {
       filename: './data/journal.db3',
-      timezone: 'pst',
+      timezone: 'PST',
       datestrings: true,
     },
     migrations: {
