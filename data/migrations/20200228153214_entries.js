@@ -3,7 +3,7 @@ exports.up = function(knex) {
     tbl.increments();
     tbl.string('title', 250).notNullable();
     tbl.text('text').notNullable();
-    tbl.timestamp('created_at', true).defaultTo(knex.fn.now());
+    tbl.datetime('created_at', true).defaultTo(knex.fn.now());
     // tbl.timestamps(true, true)
     tbl
       .integer('user_id')
